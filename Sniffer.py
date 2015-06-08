@@ -219,91 +219,154 @@ def print_packet_info(info):
     print "Ethernet: "
     print "  Destination Address: %s"%info[0].encode("hex")
     print "  Source Address: %s"%info[1].encode("hex")
+    file_handle = open("result.txt", "a+")
     if info[2] == "IP":
         print "IP:"
+        file_handle.write("IP:\n")
         print "  Version: IPv%d"%info[3][0]
+        file_handle.write("  Version: IPv%d"%info[3][0]+"\n")
         print "  Packet Length: %d"%info[3][3]
+        file_handle.write("  Packet Length: %d"%info[3][3]+"\n")
         print "  Identifier: %x"%info[3][4]
+        file_handle.write("  Identifier: %x"%info[3][4]+"\n")
         print "  Time to Live: %d"%info[3][7]
+        file_handle.write("  Time to Live: %d"%info[3][7]+"\n")
         print "  Protocol: %s"%info[3][8]
+        file_handle.write("  Protocol: %s"%info[3][8]+"\n")
         print "  Source IP: %s"%info[3][10]
+        file_handle.write("  Source IP: %s"%info[3][10]+"\n")
         print "  Destination IP: %s"%info[3][11]
+        file_handle.write("  Destination IP: %s"%info[3][11]+"\n")
         if info[3][8] == "ICMP":
             print "ICMP:"
             if info[3][12][0] == "Echo Reply":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][4].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][4].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Destination Unreachable":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Code: %s"%info[3][12][1]
+                file_handle.write("  Code: %s"%info[3][12][1]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][2].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][2].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Source Quench":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write( "  Type: %s"%info[3][12][0]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][2].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][2].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Redirect":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Code: %s"%info[3][12][1]
+                file_handle.write("  Code: %s"%info[3][12][1]+"\n")
                 print "  Gateway Address: %s"%info[3][12][2]
+                file_handle.write("  Gateway Address: %s"%info[3][12][2]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][3].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][3].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Echo":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][4].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][4].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Time Exceeded":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Code: %s"%info[3][12][1]
+                file_handle.write("  Code: %s"%info[3][12][1]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][2].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][2].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Parameter Problem":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Data: %s"%split_hex(info[3][12][3].encode("hex"),16)
+                file_handle.write("  Data: %s"%split_hex(info[3][12][3].encode("hex"),16)+"\n")
             elif info[3][12][0] == "Timestamp":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Originate Timestamp: %u"%info[3][12][4]
+                file_handle.write("  Originate Timestamp: %u"%info[3][12][4]+"\n")
                 print "  Receive Timestamp: %u"%info[3][12][5]
+                file_handle.write("  Receive Timestamp: %u"%info[3][12][5]+"\n")
                 print "  Transmit Timestamp: %u"%info[3][12][6]
+                file_handle.write( "  Transmit Timestamp: %u"%info[3][12][6]+"\n")
             elif info[3][12][0] == "Timestamp Reply":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
                 print "  Originate Timestamp: %u"%info[3][12][4]
+                file_handle.write("  Originate Timestamp: %u"%info[3][12][4]+"\n")
                 print "  Receive Timestamp: %u"%info[3][12][5]
+                file_handle.write("  Receive Timestamp: %u"%info[3][12][5]+"\n")
                 print "  Transmit Timestamp: %u"%info[3][12][6]
+                file_handle.write("  Transmit Timestamp: %u"%info[3][12][6]+"\n")
             elif info[3][12][0] == "Information Request":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
             elif info[3][12][0] == "Information Reply":
                 print "  Type: %s"%info[3][12][0]
+                file_handle.write("  Type: %s"%info[3][12][0]+"\n")
         elif info[3][8] == "TCP":
             print "TCP:"
+            file_handle.write("TCP:\n")
             print "  Source Port: %u"%info[3][12][0]
+            file_handle.write( "  Source Port: %u"%info[3][12][0]+"\n")
             print "  Destination Port: %u"%info[3][12][1]
+            file_handle.write( "  Destination Port: %u"%info[3][12][1]+"\n")
             print "  TCP URG:",info[3][12][5]
+            file_handle.write( "  TCP URG:"+str(info[3][12][5])+"\n")
             print "  TCP ACK:",info[3][12][6]
+            file_handle.write("  TCP ACK:"+str(info[3][12][6])+"\n")
             print "  TCP PSH:",info[3][12][7]
+            file_handle.write("  TCP PSH:"+str(info[3][12][7])+"\n")
             print "  TCP RST:",info[3][12][8]
+            file_handle.write("  TCP RST:"+str(info[3][12][8])+"\n")
             print "  TCP SYN:",info[3][12][9]
+            file_handle.write("  TCP SYN:"+str(info[3][12][9])+"\n")
             print "  TCP FIN:",info[3][12][10]
+            file_handle.write("  TCP FIN:"+str(info[3][12][10])+"\n")
             print "  Data:"
+            file_handle.write("Data:\n")
             print info[3][12][14]
+            file_handle.write(info[3][12][14]+"\n")
         elif info[3][8] == "UDP":
             print "UDP:"
+            file_handle.write("UDP:\n")
             print "  Source Port: %u"%info[3][12][0]
+            file_handle.write("  Source Port: %u"%info[3][12][0]+"\n")
             print "  Destination Port: %u"%info[3][12][1]
+            file_handle.write("  Destination Port: %u"%info[3][12][1]+"\n")
             print "  Packet Length: %u"%info[3][12][2]
+            file_handle.write("  Packet Length: %u"%info[3][12][2]+"\n")
             print "  Data:"
+            file_handle.write("Data:\n")
             print split_hex(info[3][12][4].encode("hex"),16)
+            file_handle.write(split_hex(info[3][12][4].encode("hex"),16)+"\n")
     elif info[2] == "ARP":
         print "ARP"
+        file_handle.write("ARP:\n")
         print "  Hardware Type: %s"%info[3][0]
+        file_handle.write("  Hardware Type: %s"%info[3][0]+"\n")
         print "  Protocol Type: %s"%info[3][1]
+        file_handle.write("  Protocol Type: %s"%info[3][1]+"\n")
         print "  Hardware Address Length: %u"%info[3][2]
+        file_handle.write("  Hardware Address Length: %u"%info[3][2]+"\n")
         print "  Protocol Address Length: %u"%info[3][3]
+        file_handle.write("  Protocol Address Length: %u"%info[3][3]+"\n")
         print "  Opcode: %x"%info[3][4]
+        file_handle.write("  Opcode: %x"%info[3][4]+"\n")
         print "  Source Hardware Address: %s"%info[3][5].encode("hex")
+        file_handle.write( "  Source Hardware Address: %s"%info[3][5].encode("hex")+"\n")
         print "  Source Protocol Address: %s"%info[3][6]
+        file_handle.write("  Source Protocol Address: %s"%info[3][6]+"\n")
         print "  Destination Hardware Address: %s"%info[3][7].encode("hex")
+        file_handle.write("  Destination Hardware Address: %s"%info[3][7].encode("hex")+"\n")
         print "  Destination Protocol Address: %s"%info[3][8]
+        file_handle.write("  Destination Protocol Address: %s"%info[3][8]+"\n")
     else:
         print "Unknown Network Type"
-        
-    print
-
+        file_handle.write("Unknown Network Type")
+    file_handle.close()
 def split_hex(s,n):
     r = ""
     while len(s) > 0:
